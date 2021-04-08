@@ -133,7 +133,7 @@ int main()
  if (GPIO_ReadInputDataBit (GPIOB, GPIO_Pin_4) == 0) {  //button  M1
  
  ```
- - Configuração de acionamento do Motor na configuração Wave drive
+ - Configuração de acionamento do Motor no modo  Wave drive
  
   ```javascript
  while(1)
@@ -194,9 +194,8 @@ void PORTB_GPIO_Configuration(void)
 
 }
 ```
-- Agora o que vai ser escrito abaixo dessa parte do código é uma configuração de Clock e também a configuração entre cristal interno (o qual está configurado nesse código) com o cristal externo, esse tipo de configuração vai ser um padrão para os outros códigos que serão mostrados em outras publicações desse GitHub.
+- Para efeitos de simulçao desse código no proteus utilizaremos o cristal  interno do chip 
 
-- Prossiga o seu código escrevendo os seguintes comandos:
 ```javascript
 void NMI_Handler()
 {
@@ -219,7 +218,7 @@ void NMI_Handler()
 	}
 }
 ```
-- E após isso é hora de configurar o Clock:
+- Configuração do  Clock:
 
 ```javascript
 //CONFIGURAÇÃO DO CLOCK 
@@ -258,11 +257,9 @@ void SetClk(uint32_t PLLMul) {
       RCC_GetClocksFreq(&ClksFreq); // update SYSCLK, HCLK, PCLK1 and PCLK2 in ClksFreq
 }
 ```
-- O código estará mais ou menos de acordo com a imagem abaixo:
 
-<a href="https://imgur.com/hVttCkK"><img src="https://imgur.com/hVttCkK.jpg" title="source: imgur.com" /></a>
 
-- E por fim configure a função **delay** escrevendo as instruções a seguir:
+- Criando uma função Delay :
 
 ```javascript
 void Delay(__IO uint32_t nCount)
@@ -278,3 +275,95 @@ void Delay(__IO uint32_t nCount)
 	}
 }
 ```
+## Gerando o Arquivo .HEX 
+
+  Para que esse cógido seja simulado no Software Proteus, é necessário gerar o arquivo **.hex**
+
+- Clique no icone em qual tem uma varinha de condão que é nomeado por **Options for Target**:
+
+<a href="https://imgur.com/WCAMeV4"><img src="https://imgur.com/WCAMeV4.jpg" title="source: imgur.com" /></a>
+
+- Na janela que irá abrir selecione **Output -> "Create HEX file"** e aperte Ok:
+
+<a href="https://imgur.com/WvRdCEm"><img src="https://imgur.com/WvRdCEm.jpg" title="source: imgur.com" /></a>
+
+- Pronto, agora o Keil irá criar um arquivo .hex na hora de compilar o seu código.
+
+## Inicializando o Proteus :
+- Com o Protteus já instalado vamos criar um novo projeto.
+<a href="https://imgur.com/qzlWRKT"><img src="https://imgur.com/qzlWRKT.jpg" title="source: imgur.com" /></a>
+
+## Fazendo o Esquemático:
+
+ O objetivo desse circuito é fazer o chaveameto des quadro MosfetS através da programação feita no Keil,cada Mosfet é responsável por acionar uma fase do motor
+
+ <a href="https://imgur.com/2KotTtf"><img src="https://i.imgur.com/2KotTtf.png" title="source: imgur.com" /></a>
+ 
+ - Para esse projeto iremos utilizar o Mosfet IRLZ34N
+ 
+ <a href="https://imgur.com/Jpw2xrm"><img src="https://i.imgur.com/Jpw2xrm.png" title="source: imgur.com" /></a>
+ 
+-  O uso botão é para habilitar o acionamento do motor
+ 
+ <a href="https://imgur.com/VvOFfmn"><img src="https://i.imgur.com/VvOFfmn.png" title="source: imgur.com" /></a>
+ 
+ - Vamos usar um Step Motor 
+
+ <a href="https://imgur.com/Mbx2QSI"><img src="https://i.imgur.com/Mbx2QSI.png" title="source: imgur.com" /></a>
+ 
+ -  Modo de ligação do Motor 
+
+ <a href="https://imgur.com/baZpvuV"><img src="https://i.imgur.com/baZpvuV.png" title="source: imgur.com" /></a>
+   
+   As letras A,B,C e D são as quatro fases do motor que serão acionadas pelos Mosfets 
+   
+ - Configuração do Motor 
+
+  clicando duas vezes sobre o componentes podemos editar alguns parâmetros do  motor 
+  
+  <a href="https://imgur.com/mpvDgk5"><img src="https://i.imgur.com/mpvDgk5.png" title="source: imgur.com" /></a>
+  
+  - Para essa simulação usaremos o microcontrolador STM32F103R6
+    
+    <a href="https://imgur.com/PTj7gxt"><img src="https://i.imgur.com/PTj7gxt.png" title="source: imgur.com" /></a>
+   
+  - Ligação do STM32
+    
+    <a href="https://imgur.com/my2ZZyq"><img src="https://i.imgur.com/my2ZZyq.png" title="source: imgur.com" /></a>
+    
+    De acordo com a programação feita no KEIl , escolhemos o PORTB, sendo que PB0,PB1,PB2 e PB3 são **inputs** e PB4 é **output**
+    IN1,IN2,IN3 E IN4 são os sinais que acionam os Mosfets
+    
+   ## Circuito Completo 
+   <a href="https://imgur.com/R9v6R95"><img src="https://i.imgur.com/R9v6R95.png" title="source: imgur.com" /></a>
+   
+   - Uma outra configuração necessária, é da alimentação do chip em que está sedo utilizado, para fazer essa configuração vá até **Design** na parte superior do proteus e depois clique em **Configura Power Rails...*
+
+<a href="https://imgur.com/HkvJorl"><img src="https://imgur.com/HkvJorl.jpg" title="source: imgur.com" /></a>
+
+- Na janela que abrir na parte de **Unconnected power nets:** vão ter duas alimentações **VDDA & VSSA** selecione os dois e depois clique em **Add** ec lique Ok:
+
+<a href="https://imgur.com/6hVaMjR"><img src="https://i.imgur.com/6hVaMjR.png" title="source: imgur.com" /></a>
+
+
+- Agora é hora de configurar a frequência do cristal interno do chip:
+
+Clique com o botão direito em cima do chip e depois escolha **Edit Properties**
+
+<a href="https://imgur.com/Iy63ZHs"><img src="https://imgur.com/Iy63ZHs.jpg" title="source: imgur.com" /></a>
+
+Vai abrir uma janela chamada **Edit Component** na parte nomeada como **Crystal Frequency:** escreva **16MHz**:
+
+<a href="https://imgur.com/uEPyrQU"><img src="https://imgur.com/uEPyrQU.jpg" title="source: imgur.com" /></a>
+
+Após selecionar a frequência do chip, devemos incluir o arquivo .Hex, esse arquivo está localizado na pasta onde foi salvo o projeto feito no keil 
+
+<a href="https://imgur.com/NBnSkgA"><img src="https://i.imgur.com/NBnSkgA.png" title="source: imgur.com" /></a>
+
+# Simulando e Finalizando:
+
+## Simulando:
+ 
+    
+    
+ 
