@@ -332,7 +332,7 @@ void Delay(__IO uint32_t nCount)
     <a href="https://imgur.com/my2ZZyq"><img src="https://i.imgur.com/my2ZZyq.png" title="source: imgur.com" /></a>
     
     De acordo com a programação feita no KEIl , escolhemos o PORTB, sendo que PB0,PB1,PB2 e PB3 são **inputs** e PB4 é **output**
-    IN1,IN2,IN3 E IN4 são os sinais que acionam os Mosfets
+    IN1,IN2,IN3 e IN4 são os sinais que acionam os Mosfets
     
    ## Circuito Completo 
    <a href="https://imgur.com/R9v6R95"><img src="https://i.imgur.com/R9v6R95.png" title="source: imgur.com" /></a>
