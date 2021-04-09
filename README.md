@@ -361,9 +361,11 @@ Após selecionar a frequência do chip, devemos incluir o arquivo .Hex, esse arq
 <a href="https://imgur.com/NBnSkgA"><img src="https://i.imgur.com/NBnSkgA.png" title="source: imgur.com" /></a>
 
 # Simulando e Finalizando:
-Após fazer toda configuração descrita anteriormente, agora basta executar sua simalção no Proteus 
+Após fazer toda configuração descrita anteriormente, agora basta executar sua simalação no Proteus 
 
 ## Simulando:
+Agora temo o resultado final do projeto.
+
 <a href="https://imgur.com/3PipbvW"><img src="https://i.imgur.com/3PipbvW.gif" title="source: imgur.com" /></a>
     
  
